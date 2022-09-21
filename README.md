@@ -1,4 +1,4 @@
-# Deneyap UV Light Sensor LTR390 Library
+# Deneyap UV Light Sensor Arduino Library
 [FOR TURKISH VERSION](docs/README_tr.md) ![trflag](https://github.com/deneyapkart/deneyapkart-arduino-core/blob/master/docs/tr.png)
 
 ***** Add photo ****
@@ -7,9 +7,9 @@ Arduino library for Deneyap UV Light Sensor LTR390
 
 ## Specifications 
 - `Product ID` **M41** ,**mpv1.0**
-- `MCU` LTR390
+- `MCU` LITE-ON LTR-390UV-01
 - `Weight` 
-- `Module Dimension`
+- `Module Dimension` 25,4 mm x 25,4 mm
 - `I2C address` 0x53
 
 | Address |  | 
@@ -17,13 +17,17 @@ Arduino library for Deneyap UV Light Sensor LTR390
 | 0x53 | default address |
 
 ## :closed_book:Documentation
-Deneyap UV Light Sensor
+[Deneyap UV Light Sensor](https://docs.deneyapkart.org/en/content/contentDetail/deneyap-module-deneyap-uv-light-and-ambient-light-)
 
-[LTR390 datasheet](https://optoelectronics.liteon.com/upload/download/DS86-2015-0004/LTR-390UV_Final_%20DS_V1%201.pdf)
+[Deneyap UV Light Sensor Shematic](https://cdn.deneyapkart.org/media/upload/userFormUpload/rpg5nuYZ4nRmF6koyt8opWJk0g1mW6tX.pdf)
+
+[Deneyap UV Light Sensor Mechanical Drawing](https://cdn.deneyapkart.org/media/upload/userFormUpload/ts4p78WD1a4OfMgkSmOPG9Jm2hrBhzXY.pdf)
+
+[LITE-ON LTR-390UV-01_datasheet](https://optoelectronics.liteon.com/upload/download/DS86-2015-0004/LTR-390UV_Final_%20DS_V1%201.pdf)
 
 [How to install a Arduino Library](https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries)
 
-## :pushpin:Deneyap UV Light Sensor LTR390
+## :pushpin:Deneyap UV Light Sensor
 This Arduino library allows you to use Deneyap UV Light Sensor LTR390 with I2C peripheral. You can use this library in your projects with any Arduino compatible board with I2C peripheral.
 
 ## :globe_with_meridians:Repository Contents
@@ -34,6 +38,8 @@ This Arduino library allows you to use Deneyap UV Light Sensor LTR390 with I2C p
 - `library.properties ` General library properties for the Arduino package manager
 
 ## Version History
+1.0.1 - update library function (`begin`),add new sketch(`IsikAlgilamaOkumaAyarlama`), update texts info
+
 1.0.0 - initial release
 
 ## :rocket:Hardware Connections

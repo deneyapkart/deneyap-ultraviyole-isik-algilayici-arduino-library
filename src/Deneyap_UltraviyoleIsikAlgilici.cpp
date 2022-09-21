@@ -3,9 +3,9 @@
 @file         Deneyap_UltraviyoleIsikAlgilici.cpp
 @mainpage     Deneyap UV Light Sensor LTR390 Arduino library source file
 @maintainer   RFtek Electronics <techsupport@rftek.com.tr>
-@version      v1.0.0
-@date         June 24, 2022
-@brief        Includes functions to control Deneyap UV Light Sensor LTR390 
+@version      v1.0.1
+@date         September 21, 2022
+@brief        Includes functions to control Deneyap UV Light Sensor LTR390
               Arduino library
 
 Library includes:
@@ -54,23 +54,22 @@ Library includes:
  * @retval None
  **/
 bool UVlight::begin(uint8_t address, TwoWire &wirePort) {
-    _wire = &Wire;
-    _address = address;
-    Wire.begin();
-    Wire.beginTransmission(address);
-    init();
-    return false;
+  _wire = &Wire;
+  _address = address;
+  Wire.begin();
+  init();
+  return false;
 }
 
 /**
  * @brief  LTR390 Initialization
- * @param 
+ * @param
  * @retval True on success, Fail on false.
  **/
 bool UVlight::init() {
   uint8_t ltrId = readRegister(LTR390_PART_ID);
   // check part ID!
-  if ((ltrId  >> 4) != 0x0B) {
+  if ((ltrId >> 4) != 0x0B) {
     return false;
   }
   // OK now we can do a soft reset
@@ -82,21 +81,21 @@ bool UVlight::init() {
   if (!enabled()) {
     return false;
   }
-  
-  setGain(LTR390_GAIN_3); //set gain
-  setResolution(LTR390_RESOLUTION_18BIT); //set resolution
+
+  setGain(LTR390_GAIN_3);                 // set gain
+  setResolution(LTR390_RESOLUTION_18BIT); // set resolution
   return true;
 }
 
 /**
  * @brief  Perform a soft reset with 10ms delay.
- * @param 
+ * @param
  * @retval rue on success (reset bit was cleared post-write)
  **/
 bool UVlight::reset(void) {
   uint8_t readData = readRegister(LTR390_MAIN_CTRL);
   readData |= B00010000;
-  //byte ack = writeRegister(LTR390_MAIN_CTRL, readData);
+  // byte ack = writeRegister(LTR390_MAIN_CTRL, readData);
   delay(10);
   readData = readRegister(LTR390_MAIN_CTRL);
   if (readData != 0) {
@@ -107,7 +106,7 @@ bool UVlight::reset(void) {
 
 /**
  * @brief  Checks if new data is available in data register
- * @param 
+ * @param
  * @retval True on new data available
  **/
 bool UVlight::newDataAvailable(void) {
@@ -119,7 +118,7 @@ bool UVlight::newDataAvailable(void) {
 
 /**
  * @brief  Read 3-bytes out of ambient data register, does not check if data is new!
- * @param 
+ * @param
  * @retval Up to 20 bits, right shifted into a 32 bit int
  **/
 uint32_t UVlight::readALS(void) {
@@ -133,7 +132,7 @@ uint32_t UVlight::readALS(void) {
 
 /**
  * @brief  Read 3-bytes out of UV data register, does not check if data is new
- * @param 
+ * @param
  * @retval Up to 20 bits, right shifted into a 32 bit int
  **/
 uint32_t UVlight::readUVS(void) {
@@ -147,7 +146,7 @@ uint32_t UVlight::readUVS(void) {
 
 /**
  * @brief  get lux data,LUX is calculated according to the formula
- * @param 
+ * @param
  * @retval the ambient light data ,unit lux.
  **/
 float UVlight::getLUX() {
@@ -160,7 +159,7 @@ float UVlight::getLUX() {
 
 /**
  * @brief  get UVI data,UVI is calculated according to the formula
- * @param 
+ * @param
  * @retval the ultraviolet light data,unit uw/cm2.
  **/
 float UVlight::getUVI() {
@@ -173,7 +172,7 @@ float UVlight::getUVI() {
 
 /**
  * @brief  Enable or disable the light sensor
- * @param 
+ * @param
  * @retval en True to enable, False to disable
  **/
 void UVlight::enable(bool en) {
@@ -184,7 +183,7 @@ void UVlight::enable(bool en) {
 
 /**
  * @brief  Read the enabled-bit from the sensor
- * @param 
+ * @param
  * @retval True if enabled
  **/
 bool UVlight::enabled(void) {
@@ -196,7 +195,7 @@ bool UVlight::enabled(void) {
 
 /**
  * @brief  Set the sensor mode to EITHER ambient (LTR390_MODE_ALS) or UV (LTR390_MODE_UVS)
- * @param 
+ * @param
  * @retval mode The desired mode - LTR390_MODE_UVS or LTR390_MODE_ALS
  **/
 void UVlight::setMode(ltr390_mode_t mode) {
@@ -208,7 +207,7 @@ void UVlight::setMode(ltr390_mode_t mode) {
 
 /**
  * @brief  get the sensor's mode
- * @param 
+ * @param
  * @retval The current mode - LTR390_MODE_UVS or LTR390_MODE_ALS
  **/
 ltr390_mode_t UVlight::getMode(void) {
@@ -220,7 +219,7 @@ ltr390_mode_t UVlight::getMode(void) {
 
 /**
  * @brief  Set the sensor gain
- * @param 
+ * @param
  * @retval gain The desired gain: LTR390_GAIN_1, LTR390_GAIN_3, LTR390_GAIN_6 LTR390_GAIN_9 or LTR390_GAIN_18
  **/
 void UVlight::setGain(ltr390_gain_t gain) {
@@ -229,7 +228,7 @@ void UVlight::setGain(ltr390_gain_t gain) {
 
 /**
  * @brief  Get the sensor's gain
- * @param 
+ * @param
  * @retval gain The current gain: LTR390_GAIN_1, LTR390_GAIN_3, LTR390_GAIN_6 LTR390_GAIN_9 or LTR390_GAIN_18
  **/
 ltr390_gain_t UVlight::getGain(void) {
@@ -240,7 +239,7 @@ ltr390_gain_t UVlight::getGain(void) {
 
 /**
  * @brief  Set the sensor resolution. Higher resolutions take longer to read
- * @param 
+ * @param
  * @retval res The desired resolution: LTR390_RESOLUTION_13BIT,
  *  LTR390_RESOLUTION_16BIT, LTR390_RESOLUTION_17BIT, LTR390_RESOLUTION_18BIT,
  *  LTR390_RESOLUTION_19BIT or LTR390_RESOLUTION_20BIT
@@ -253,7 +252,7 @@ void UVlight::setResolution(ltr390_resolution_t res) {
 
 /**
  * @brief  Get the sensor's resolution
- * @param 
+ * @param
  * @retval The current resolution: LTR390_RESOLUTION_13BIT,
  *  LTR390_RESOLUTION_16BIT, LTR390_RESOLUTION_17BIT, LTR390_RESOLUTION_18BIT,
  *  LTR390_RESOLUTION_19BIT or LTR390_RESOLUTION_20BIT
@@ -268,7 +267,7 @@ ltr390_resolution_t UVlight::getResolution(void) {
 /**
  * @brief  Set the interrupt output threshold range for lower and upper.
  *   When the sensor is below the lower, or above upper, interrupt will fire
- * @param 
+ * @param
  * @retval lower: The lower value to compare against the data register, higher: The higher value to compare against the data register
  **/
 void UVlight::setThresholds(uint32_t lower, uint32_t higher) {
@@ -292,24 +291,25 @@ void UVlight::setThresholds(uint32_t lower, uint32_t higher) {
  * @brief  Configure the interrupt based on the thresholds in setThresholds()
  *   When the sensor is below the lower, or above upper thresh, interrupt will
  *   fire
- * @param 
+ * @param
  * @retval enable: Whether the interrupt output is enabled, source: Whether to use the ALS or UVS data register to compare
  * @retval persistance: The number of consecutive out-of-range readings before we fire the IRQ. Default is 0 (each reading will fire)
  **/
-void UVlight::configInterrupt(bool enable, ltr390_mode_t  source, uint8_t persistance) {
+void UVlight::configInterrupt(bool enable, ltr390_mode_t source, uint8_t persistance) {
   uint8_t readData = 0;
   readData |= (enable << 2) | (1 << 4) | (source << 5);
   writeRegister(LTR390_INT_CFG, readData);
-  if (persistance > 0x0F) persistance = 0x0F;
+  if (persistance > 0x0F)
+    persistance = 0x0F;
   uint8_t _p = 0;
   _p |= persistance << 4;
   writeRegister(LTR390_INT_PST, _p);
 }
 
 /**
- * @brief  
- * @param 
- * @retval 
+ * @brief
+ * @param
+ * @retval
  **/
 uint8_t UVlight::writeRegister(uint8_t reg, uint8_t data) {
   _wire->beginTransmission(_address);
@@ -319,9 +319,9 @@ uint8_t UVlight::writeRegister(uint8_t reg, uint8_t data) {
 }
 
 /**
- * @brief  
- * @param 
- * @retval 
+ * @brief
+ * @param
+ * @retval
  **/
 uint8_t UVlight::readRegister(uint8_t reg) {
   uint8_t regValue = 0;

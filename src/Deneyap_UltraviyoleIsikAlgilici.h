@@ -2,8 +2,8 @@
 *****************************************************************************
 @file         Deneyap_UltraviyoleIsikAlgilici.h
 @mainpage     Deneyap UV Light Sensor LTR390 Arduino library header file
-@version      v1.0.0
-@date         June 24, 2022
+@version      v1.0.1
+@date         September 21, 2022
 @brief        This file contains all function prototypes and macros
               for Deneyap UV Light Sensor LTR390 Arduino library
 *****************************************************************************
@@ -43,22 +43,22 @@
       b. WFAC >1 device under tinted window glass. Calibrate under white LED.
 */
 
-#define LTR390_ADDRESS     0x53   ///< I2C address
-#define LTR390_MAIN_CTRL   0x00   ///< Main control register
-#define LTR390_MEAS_RATE   0x04   ///< Resolution and data rate
-#define LTR390_GAIN        0x05   ///< ALS and UVS gain range
-#define LTR390_PART_ID     0x06   ///< Part id/revision register
-#define LTR390_MAIN_STATUS 0x07   ///< Main status register
-#define LTR390_ALSDATA_LSB 0x0D   ///< ALS data lowest byte
-#define LTR390_ALSDATA_MSB 0x0E   ///< ALS data middle byte
-#define LTR390_ALSDATA_HSB 0x0F   ///< ALS data highest byte
-#define LTR390_UVSDATA_LSB 0x10   ///< UVS data lowest byte
-#define LTR390_UVSDATA_MSB 0x11   ///< UVS data middle byte
-#define LTR390_UVSDATA_HSB 0x12   ///< UVS data highest byte
-#define LTR390_INT_CFG     0x19   ///< Interrupt configuration
-#define LTR390_INT_PST     0x1A   ///< Interrupt persistance config
-#define LTR390_THRESH_UP   0x21   ///< Upper threshold, low byte
-#define LTR390_THRESH_LOW  0x24   ///< Lower threshold, low byte
+#define LTR390_ADDRESS 0x53     ///< I2C address
+#define LTR390_MAIN_CTRL 0x00   ///< Main control register
+#define LTR390_MEAS_RATE 0x04   ///< Resolution and data rate
+#define LTR390_GAIN 0x05        ///< ALS and UVS gain range
+#define LTR390_PART_ID 0x06     ///< Part id/revision register
+#define LTR390_MAIN_STATUS 0x07 ///< Main status register
+#define LTR390_ALSDATA_LSB 0x0D ///< ALS data lowest byte
+#define LTR390_ALSDATA_MSB 0x0E ///< ALS data middle byte
+#define LTR390_ALSDATA_HSB 0x0F ///< ALS data highest byte
+#define LTR390_UVSDATA_LSB 0x10 ///< UVS data lowest byte
+#define LTR390_UVSDATA_MSB 0x11 ///< UVS data middle byte
+#define LTR390_UVSDATA_HSB 0x12 ///< UVS data highest byte
+#define LTR390_INT_CFG 0x19     ///< Interrupt configuration
+#define LTR390_INT_PST 0x1A     ///< Interrupt persistance config
+#define LTR390_THRESH_UP 0x21   ///< Upper threshold, low byte
+#define LTR390_THRESH_LOW 0x24  ///< Lower threshold, low byte
 
 /*!    @brief  Whether we are measuring ambient or UV light  */
 typedef enum {
@@ -86,9 +86,9 @@ typedef enum {
 } ltr390_resolution_t;
 
 class UVlight {
-public:
 
-    bool begin(uint8_t address, TwoWire &wirePort = Wire); 
+public:
+    bool begin(uint8_t address, TwoWire &wirePort = Wire);
     bool init();
     bool reset(void);
     void enable(bool en);
@@ -100,8 +100,7 @@ public:
     void setResolution(ltr390_resolution_t res);
     ltr390_resolution_t getResolution(void);
     void setThresholds(uint32_t lower, uint32_t higher);
-    void configInterrupt(bool enable, ltr390_mode_t source,
-                         uint8_t persistance = 0);
+    void configInterrupt(bool enable, ltr390_mode_t source, uint8_t persistance = 0);
     bool newDataAvailable(void);
     uint32_t readUVS(void);
     uint32_t readALS(void);
